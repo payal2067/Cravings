@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import deliveryboy from "../assets/deliberyboy.jpg";
+import { Link } from "react-router-dom";
+import deliveryboy from "../assets/delivery.jpg";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -31,12 +32,12 @@ const Login = () => {
 
   return (
     <>
-      <div className="h-[90vh] bg-linear-to-r from-(--secondary) to-(--primary) grid grid-cols-2 p-10 ">
-        <div className="hidden md:block">
-          <img src={deliveryboy} alt="" className="rotate-y-180" />
+      <div className="h-[90vh] bg-linear-to-l from-(--secondary) to-(--primary) grid grid-cols-2 p-10  ">
+        <div className="hidden md:block mt-24 mx-16">
+          <img src={deliveryboy} alt="" className="rotate-y-200" />
         </div>
-        <div className="w-md bg-(--background) rounded shadow p-10 flex flex-col justify-center">
-          <div>Welocome Back!</div>
+        <div className="w-md bg-(--primary-content) rounded shadow p-10 flex flex-col justify-center">
+          <div className="text-center text-4xl text-(--primary)">Welocome Back!</div>
 
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
@@ -47,7 +48,7 @@ const Login = () => {
                 name="email"
                 value={loginData.email}
                 onChange={handleChange}
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-(--accent)"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-(--error)"
               />
             </div>
             <div className="flex flex-col gap-2 mt-4">
@@ -58,15 +59,41 @@ const Login = () => {
                 name="password"
                 value={loginData.password}
                 onChange={handleChange}
-                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-(--accent)"
+                className="border p-2 rounded focus:outline-none focus:ring-2 focus:ring-(--error)"
               />
             </div>
+            <br />
+            <div class="flex justify-between">
+              <label>
+                <input className="checkbox " type="checkbox" />
+                Remember me
+              </label>
+
+              <Link to="/login" className="text-(--primary) hover:underline">
+                Forgot Password?
+              </Link>
+            </div>
+            <br />
             <button
               type="submit"
-              className="mt-6 bg-(--primary) text-white py-2 px-4 rounded hover:bg-(--accent)"
+              className="btn  w-full border-0 text-white bg-(--primary) py-2 px-4 rounded hover:bg-(--success)"
             >
               Login
             </button>
+            <br />
+            <br/>
+            <div className="flex gap-3 w-full items-center justify-center">
+              <hr className="border  border-olive-400 text-( --primary) w-20" />
+
+              <p className="text-center flex">Don't have an account?</p>
+              <hr className="border border-olive-400 text-( --primary) w-20" />
+            </div>
+            <br />
+            <p className=" text-center">
+              <Link to="/register" className="text-(--primary) hover:underline">
+                Create an account
+              </Link>
+            </p>
           </form>
         </div>
       </div>
