@@ -37,7 +37,7 @@ const Login = () => {
           <img src={deliveryboy} alt="" className="rotate-y-200" />
         </div>
         <div className="w-md bg-(--primary-content) rounded shadow p-10 flex flex-col justify-center">
-          <div className="text-center text-4xl text-(--primary)">Welocome Back!</div>
+          <div className="text-center text-4xl text-(--primary)">Welcome Back!</div>
 
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
