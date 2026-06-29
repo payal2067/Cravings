@@ -1,11 +1,16 @@
   import React from "react";
-  
-  const Footer = () => {
-    return (
-      <>
-        <div className="bg-amber-900 text-amber-50">Footer</div>
-      </>
-    );
-  };
-  
-  export default Footer;
+import { Link } from "react-router-dom";
+
+
+const Footer = () => {
+  return (
+    <>
+    <div className="p-2 z-50 flex top-0 items-center text-white  sticky justify-between bg-(--neutral)">
+      Footer
+    </div>
+    </>
+     
+  );
+};
+
+export default Footer;

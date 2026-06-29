@@ -63,7 +63,7 @@ const Login = () => {
               />
             </div>
             <br />
-            <div class="flex justify-between">
+            <div className="flex justify-between">
               <label>
                 <input className="checkbox " type="checkbox" />
                 Remember me

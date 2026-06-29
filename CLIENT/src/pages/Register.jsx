@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import deliveryboy from "../assets/delivery.jpg";
 import { Link } from "react-router-dom";
+import api from "../config/api.config.js";
 const Register = () => {
   const [registerData, setregisterData] = useState({
     fullName: "",
@@ -31,6 +32,14 @@ const Register = () => {
       number: registerData.number,
       password: registerData.password,
     };
+
+    try {
+      const res = await api.post("/auth/register", payload)
+      alert (res.data.message)
+    } catch (error) {
+      console.log(res?.data?.message ||error.message);
+      
+    }
   };
 
   return (
@@ -44,14 +53,14 @@ const Register = () => {
             {" "}
             Create Account
           </div>
-          <p class="text-center font">
+          <p className="text-center font">
             Join us as a Customer, Restaurant, or Rider
           </p>
 
           <form onSubmit={handleSubmit}>
-            <div class="mb-3">
-              <label class="font-bold">Register as:</label>
-              <div class="flex gap-3 mt-1">
+            <div className="mb-3">
+              <label className="font-bold">Register as:</label>
+              <div className="flex gap-3 mt-1">
                 <div>
                   <input type="radio" name="role" /> Customer
                 </div>
@@ -112,7 +121,7 @@ const Register = () => {
               />
             </div>
             <br />
-            <div class="">
+            <div >
               <input type="checkbox" className="checkbox" /> I agree to the
               <span className="text-(--primary)"> terms and conditions</span>
             </div>

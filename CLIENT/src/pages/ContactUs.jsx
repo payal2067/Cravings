@@ -46,7 +46,7 @@ const ContactUs = () => {
             {" "}
             Contact Us
           </div>
-          <p class="text-center font">
+          <p className="text-center font">
             Have a question? We'd love to hear from you.
           </p>
 
