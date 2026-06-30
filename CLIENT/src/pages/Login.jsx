@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import deliveryboy from "../assets/delivery.jpg";
+import api from "../config/api.config.js";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [loginData, setLoginData] = useState({
@@ -28,6 +30,17 @@ const Login = () => {
       email: loginData.email.toLowerCase(),
       password: loginData.password,
     };
+
+    try {
+      const res = await api.post("/auth/login", payload);
+      toast.success(res.data.message);
+      console.log(res.data.password);
+    } catch (error) {
+      toast.error(
+        error.response.status + " | " + error.response?.data?.message ||
+          error.message,
+      );
+    }
   };
 
   return (
@@ -37,7 +50,9 @@ const Login = () => {
           <img src={deliveryboy} alt="" className="rotate-y-200" />
         </div>
         <div className="w-md bg-(--primary-content) rounded shadow p-10 flex flex-col justify-center">
-          <div className="text-center text-4xl text-(--primary)">Welcome Back!</div>
+          <div className="text-center text-4xl text-(--primary)">
+            Welcome Back!
+          </div>
 
           <form onSubmit={handleSubmit}>
             <div className="flex flex-col gap-2">
@@ -81,7 +96,7 @@ const Login = () => {
               Login
             </button>
             <br />
-            <br/>
+            <br />
             <div className="flex gap-3 w-full items-center justify-center">
               <hr className="border  border-olive-400 text-( --primary) w-20" />
 

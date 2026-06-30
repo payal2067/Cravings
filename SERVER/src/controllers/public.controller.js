@@ -1,5 +1,5 @@
 import Contact from "../models/contact.model.js";
-
+import bcrypt from "bcrypt";
 export const ContactUs = async (req, res, next) => {
   try {
     //Controller Logic

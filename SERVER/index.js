@@ -22,8 +22,10 @@ app.use("/public", PublicRouter);
 //Default API
 app.get("/", (req, res) => {
   console.log("Default Get API Hit");
-  res.json({ message: "Welcome to my Cravins Project" });
+  res.json({ message: "Welcome to my Cravings Project" });
 });
+
+//Default Error Handler
 
 app.get("/", (req, res, next) => {
   const ErrMessage = err.message || "Internal Server Error";

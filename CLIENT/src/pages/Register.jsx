@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import deliveryboy from "../assets/delivery.jpg";
 import { Link } from "react-router-dom";
 import api from "../config/api.config.js";
+import { Toaster } from "react-hot-toast";
 const Register = () => {
   const [registerData, setregisterData] = useState({
     fullName: "",
@@ -34,11 +35,10 @@ const Register = () => {
     };
 
     try {
-      const res = await api.post("/auth/register", payload)
-      alert (res.data.message)
+      const res = await api.post("/auth/register", payload);
+      alert(res.data.message);
     } catch (error) {
-      console.log(res?.data?.message ||error.message);
-      
+      console.log(res?.data?.message || error.message);
     }
   };
 
@@ -58,20 +58,7 @@ const Register = () => {
           </p>
 
           <form onSubmit={handleSubmit}>
-            <div className="mb-3">
-              <label className="font-bold">Register as:</label>
-              <div className="flex gap-3 mt-1">
-                <div>
-                  <input type="radio" name="role" /> Customer
-                </div>
-                <div>
-                  <input type="radio" name="role" /> Restaurant
-                </div>
-                <div>
-                  <input type="radio" name="role" /> Rider
-                </div>
-              </div>
-            </div>
+         
             <div className="flex flex-col gap-2">
               <input
                 type="text"
