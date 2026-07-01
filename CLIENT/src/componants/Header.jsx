@@ -1,7 +1,10 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import headerlogo from "../assets/images/header-logo.png";
+import { useAuth } from "../context/AuthContext";
 const Header = () => {
+
+  const {user, islogin}
   return (
     <>
       <div className="navbar p-2 z-50 flex top-0 items-center  sticky justify-between bg-(--primary)">

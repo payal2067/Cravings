@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import deliveryboy from "../assets/delivery.jpg";
 import api from "../config/api.config.js";
 import toast from "react-hot-toast";
+import { useAuth } from "../context/AuthContext.jsx";
+
 
 const Login = () => {
+  const {setUser, setIsLogin} = useState();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -35,6 +38,9 @@ const Login = () => {
       const res = await api.post("/auth/login", payload);
       toast.success(res.data.message);
       console.log(res.data.password);
+      setUser(res.data.data)
+      setIsLogin(true)
+      navigate("/user/dashbboard")
     } catch (error) {
       toast.error(
         error.response.status + " | " + error.response?.data?.message ||
