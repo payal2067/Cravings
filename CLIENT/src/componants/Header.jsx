@@ -1,7 +1,8 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link , useNavigate } from "react-router-dom";
 import headerlogo from "../assets/images/header-logo.png";
 import { useAuth } from "../context/AuthContext";
+import { AiOutlineLogout } from "react-icons/ai";
 const Header = () => {
 
   const {user, islogin}
