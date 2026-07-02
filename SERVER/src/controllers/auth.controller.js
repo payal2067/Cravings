@@ -3,9 +3,9 @@ import bcrypt from "bcrypt";
 
 export const RegisterUser = async (req, res, next) => {
   try {
-    const { fullName, email, password, number } = req.body;
+    const { fullName, email, phone, password, gender, dob } = req.body;
 
-    if (!fullName || !email || !password || !number ) {
+    if (!fullName || !email || !phone || !password || !gender || !dob) {
       const error = new Error("All fields Required");
       error.statusCode = 400;
       return next(error);
@@ -18,7 +18,7 @@ export const RegisterUser = async (req, res, next) => {
       return next(error);
     }
 
-    // const photoUrl = `https://placehold.co/600x400?text=${fullName.charAt(0).toUpperCase()}`;
+    const photoUrl = `https://placehold.co/600x400?text=${fullName.charAt(0).toUpperCase()}`;
 
     const SALT = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, SALT);
@@ -27,10 +27,10 @@ export const RegisterUser = async (req, res, next) => {
       fullName,
       email,
       password: hashedPassword,
-      number,
-      // gender,
-      // dob,
-      // photo: photoUrl,
+      phone,
+      gender,
+      dob,
+      photo: photoUrl,
     });
 
     res.status(201).json({ message: "User Created Successfully" });

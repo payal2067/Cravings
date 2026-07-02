@@ -160,12 +160,14 @@ const Register = () => {
             </div>
 
             {validateError && (
-              <p className="text-red-500 text-sm col-span-2">{validateError}</p>
+              <p className="text-(--primary) text-sm col-span-2">
+                {validateError}
+              </p>
             )}
 
             <button
               type="submit"
-              className="col-span-2 mt-2 bg-(--primary) text-white py-2 px-4 rounded hover:bg-(--accent)"
+              className="col-span-2 mt-2 bg-(--primary) text-white py-2 px-4 rounded hover:bg-(--secondary)"
             >
               Register
             </button>

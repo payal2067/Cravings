@@ -4,10 +4,11 @@ import deliveryboy from "../assets/delivery.jpg";
 import api from "../config/api.config.js";
 import toast from "react-hot-toast";
 import { useAuth } from "../context/AuthContext.jsx";
-
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const {setUser, setIsLogin} = useState();
+  const { setUser, setIsLogin, isLogin } = useAuth();
+  const navigate = useNavigate();
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
@@ -37,10 +38,10 @@ const Login = () => {
     try {
       const res = await api.post("/auth/login", payload);
       toast.success(res.data.message);
-      sessionStorage.setItem("UserData",JSON.stringify(res.data.data) )
-      setUser(res.data.data)
-      setIsLogin(true)
-      navigate("/user/dashbboard")
+      sessionStorage.setItem("UserData", JSON.stringify(res.data.data));
+      setUser(res.data.data);
+      // setIsLogin(true)
+      navigate("/user/dashbboard");
     } catch (error) {
       toast.error(
         error.response.status + " | " + error.response?.data?.message ||
@@ -48,6 +49,9 @@ const Login = () => {
       );
     }
   };
+
+  const inputClass =
+    "border p-2  rounded focus:outline-none focus:ring-2 focus:(--primary)";
 
   return (
     <>
