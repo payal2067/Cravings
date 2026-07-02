@@ -7,7 +7,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Footer from "./componants/Footer";
 import { Toaster } from "react-hot-toast";
-import UserDashboard from "./pages/dashboard/userDashboard";
+import UserDashboard from "./pages/dashboard/UserDashboard";
 const App = () => {
   return (
     <>
