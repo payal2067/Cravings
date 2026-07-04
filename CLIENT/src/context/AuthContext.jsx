@@ -4,12 +4,12 @@ const AuthContext = React.createContext();
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(
-    JSON.parse(sessionStorage.getItem("UserData")) || " ",
+    JSON.parse(sessionStorage.getItem("UserData")) || "",
   );
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(!!user);
 
   useEffect(() => {
-    // if (User) {
+    // if (user) {
     //   setIsLogin(true);
     // } else {
     //   setIsLogin(false);
