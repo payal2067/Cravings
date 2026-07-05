@@ -1,88 +1,99 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import headerlogo from "../assets/images/header-logo.png";
+import logoLight from "../assets/images/headerlogo.png";
 import { useAuth } from "../context/AuthContext.jsx";
-import { AiOutlineLogout } from "react-icons/ai";
+import { FaPowerOff } from "react-icons/fa";
 import api from "../config/api.config.js";
 import toast from "react-hot-toast";
 
 const Header = () => {
-  const { user, setUser, isLogin, setIsLogin } = useAuth();
+  const { user, isLogin, role, setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
+
+  const handleNavigate = () => {
+    //console.log("Handle Navigate", role);
+
+    if (role === "restaurant") {
+      navigate("/restaurant-dashboard");
+    } else if (role === "rider") {
+      navigate("/rider-dashboard");
+    } else if (role === "admin") {
+      navigate("/admin-dashboard");
+    } else {
+      navigate("/customer-dashboard");
+    }
+  };
 
   const handleLogout = async () => {
     try {
       const res = await api.get("/auth/logout");
-      sessionStorage.removeItem("UserData");
-      setIsLogin(false);
-      setUser(false);
-      navigate("/");
       toast.success(res.data.message);
+
+      sessionStorage.removeItem("cravingUser");
+      setUser(null);
+      setIsLogin(false);
+      setRole(null);
+      navigate("/");
     } catch (error) {
       toast.error(
-        error.response.status + " | " + error.response?.data?.message ||
-          error.message,
+        error.response?.data?.message ||
+          "Unknown error occurred during registration. Please try again.",
       );
     }
   };
 
   return (
     <>
-      <div className="navbar p-2 z-50 flex top-0 items-center  sticky justify-between bg-(--primary)">
-        <div className="px-8">
-          <Link to={"./"}>
-            <img src={headerlogo} alt="Login" className="header-img w-20 " />
+      <div className="sticky top-0 z-99 flex items-center justify-between px-12 py-1 bg-(--color-primary) text-white w-full h-16 shadow-md">
+        <div className="h-full">
+          <Link to="/">
+            <img src={logoLight} alt="Logo" className="w-fit h-full" />{" "}
           </Link>
         </div>
 
-        <div className="btn flex gap-6 px-8 items-center">
-          <Link to={"/"}>
-            <button className="btn text-(--base-100) outline-none hover:bg-transparent hover:underline">
-              Home
-            </button>
-          </Link>
-          <Link to={"/contact-us"}>
-            <button className="btn text-(--base-100) outline-none hover:bg-transparent hover:underline">
-              ContactUs
-            </button>
-          </Link>
-          {isLogin ? (
-            <div className="border-s-2 flex justify-center items-center gap-4 px-4">
-              <div className="w-8 h-8 rounded-full overflow-hidden">
-                <img
-                  src={user.photo}
-                  alt=""
-                  className="w-full h-full object-cover"
-                />
+        {isLogin ? (
+          <div className="flex items-center gap-2">
+            <button
+              className="flex gap-2 items-center text-(--color-primary-content) border border-transparent hover:border-(--color-primary-content)  px-3 py-1 rounded"
+              title="Go to Dashboard"
+              onClick={handleNavigate}
+            >
+              <img
+                src={user?.photo}
+                alt={user?.fullName}
+                className="w-12 h-12 rounded-full object-cover object-top"
+              />
+              <div className="flex flex-col items-start">
+                <span className="text-base">{user?.fullName}</span>
+                <span className="text-xs text-(--color-primary-content)/80">
+                  Customer
+                </span>
               </div>
-              <Link
-                to={"/user/dashboard"}
-                className="hover:underline hover:text-white"
-              >
-                {user.fullName}
-              </Link>
-              <button
-                onClick={handleLogout}
-                className="text-(--success) hover:text-(--base-content)"
-              >
-                <AiOutlineLogout />
-              </button>
-            </div>
-          ) : (
-            <>
-              <Link to={"/login"}>
-                <button className="btn text-(--base-100) outline-none hover:bg-transparent hover:underline">
-                  Login
-                </button>
-              </Link>
-              <Link to={"/register"}>
-                <button className="btn text-(--primary) bg-white rounded-md px-5 py-2 ">
-                  Register
-                </button>
-              </Link>
-            </>
-          )}
-        </div>
+            </button>
+            <button
+              onClick={handleLogout}
+              className="text-(--color-primary-content) border border-transparent hover:border-(--color-primary-content) hover:bg-(--color-error) px-3 py-3 rounded"
+              title="Logout"
+            >
+              <FaPowerOff />
+            </button>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2">
+            <Link
+              to="/login"
+              className="text-(--color-primary-content) border border-transparent hover:border-(--color-primary-content) px-3 py-1 rounded"
+            >
+              Login
+            </Link>
+            <Link
+              to="/register"
+              className="bg-(--color-primary-content) text-(--color-primary) hover:bg-(--color-primary) hover:text-(--color-primary-content) border px-3 py-1 rounded"
+            >
+              Register
+            </Link>
+          </div>
+        )}
       </div>
     </>
   );
