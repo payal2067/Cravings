@@ -31,14 +31,13 @@ export const RegisterUser = async (req, res, next) => {
       phone,
       gender,
       dob,
-      photo: photoUrl,
+      photo,
     });
 
     res.status(201).json({ message: "User Created Successfully" });
   } catch (error) {
-    // console.log(error.message);
-
-    res.status(500).json({ message: "Internal Server Error" });
+    console.log(error.message);
+    next();
   }
 };
 

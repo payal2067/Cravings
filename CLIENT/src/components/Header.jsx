@@ -11,8 +11,6 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleNavigate = () => {
-    //console.log("Handle Navigate", role);
-
     if (role === "restaurant") {
       navigate("/restaurant-dashboard");
     } else if (role === "rider") {
@@ -59,10 +57,11 @@ const Header = () => {
               onClick={handleNavigate}
             >
               <img
-                src={user?.photo}
+                src={user?.photo.url}
                 alt={user?.fullName}
                 className="w-12 h-12 rounded-full object-cover object-top"
               />
+
               <div className="flex flex-col items-start">
                 <span className="text-base">{user?.fullName}</span>
                 <span className="text-xs text-(--color-primary-content)/80">
