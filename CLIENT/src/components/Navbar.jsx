@@ -1,16 +1,18 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logoLight from "../assets/images/headerlogo.png";
-import { useAuth } from "../context/AuthContext.jsx";
+import { useAuth } from "../context/AuthContext";
 import { FaPowerOff } from "react-icons/fa";
-import api from "../config/api.config.js";
+import api from "../config/ApiConfig";
 import toast from "react-hot-toast";
 
-const Header = () => {
+const Navbar = () => {
   const { user, isLogin, role, setUser, setIsLogin, setRole } = useAuth();
   const navigate = useNavigate();
 
   const handleNavigate = () => {
+    //console.log("Handle Navigate", role);
+
     if (role === "restaurant") {
       navigate("/restaurant-dashboard");
     } else if (role === "rider") {
@@ -61,7 +63,6 @@ const Header = () => {
                 alt={user?.fullName}
                 className="w-12 h-12 rounded-full object-cover object-top"
               />
-
               <div className="flex flex-col items-start">
                 <span className="text-base">{user?.fullName}</span>
                 <span className="text-xs text-(--color-primary-content)/80">
@@ -86,7 +87,7 @@ const Header = () => {
               Login
             </Link>
             <Link
-              to="/register"
+              to="/register/customer"
               className="bg-(--color-primary-content) text-(--color-primary) hover:bg-(--color-primary) hover:text-(--color-primary-content) border px-3 py-1 rounded"
             >
               Register
@@ -98,4 +99,4 @@ const Header = () => {
   );
 };
 
-export default Header;
+export default Navbar;

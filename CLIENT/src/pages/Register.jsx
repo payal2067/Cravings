@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import api from "../config/api.config.js";
+import api from "../config/ApiConfig";
 
 const Register = () => {
   const userType = useParams().userType; // Get userType from URL params (if needed)
@@ -324,5 +324,6 @@ const Register = () => {
     </div>
   );
 };
+
 
 export default Register;

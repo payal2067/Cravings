@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { MdEdit } from "react-icons/md";
 import { useAuth } from "../../context/AuthContext";
-import api from "../../config/api.config.js";
+import api from "../../config/ApiConfig";
 import toast from "react-hot-toast";
 import { MdOutlineAddAPhoto } from "react-icons/md";
 
@@ -28,18 +28,18 @@ const CustomerSetting = () => {
     try {
       setIsLoading(true);
 
-      const payLoad = new FormData();
-      payLoad.append("fullName", formData.fullName);
-      payLoad.append("email", formData.email);
-      payLoad.append("phone", formData.phone);
+      const payload = new FormData();
+      payload.append("fullName", formData.fullName);
+      payload.append("email", formData.email.toLowerCase());
+      payload.append("phone", formData.phone);
 
-      payLoad.append("displayPic", profilePic);
+      payload.append("displayPic", profilePic);
 
-      const response = await api.put(`/user/edit-profile`, payLoad);
+      const response = await api.put(`/user/edit-profile`, payload);
 
-      setUser(response.data.data)
-      sessionStorage.setItem("CravingUser", JSON.stringify(response.data.data));
-      
+      setUser(response.data.data);
+      sessionStorage.setItem("cravingUser", JSON.stringify(response.data.data));
+
       setEditingProfile(false);
       toast.success("Profile updated successfully!");
     } catch (err) {
@@ -56,14 +56,15 @@ const CustomerSetting = () => {
       phone: user.phone,
     });
     setProfilePicPreview(null);
-    setEditingProfile(false)
+    setEditingProfile(false);
   };
 
   const handleProfilePicChange = (e) => {
-    const file = e.target.file[0];
+    const file = e.target.files[0];
     setProfilePicPreview(URL.createObjectURL(file));
     setProfilePic(file);
   };
+
   return (
     <div className="overflow-y-auto h-full p-6 space-y-6">
       {/* User Profile Section */}
@@ -150,7 +151,7 @@ const CustomerSetting = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleProfileChange}
-                  className={`w-full px-3 py-2 border ${editingProfile ? "border-(--color-secondary) text-(--color-secondary)/50 cursor-not-allowed" : "border-transparent" } rounded col-span-4`}
+                  className={`w-full px-3 py-2 border ${editingProfile ? "border-(--color-secondary) text-(--color-secondary) disabled:bg-(--color-secondary)/50 cursor-not-allowed" : "border-transparent"} rounded col-span-4`}
                   disabled
                 />
 

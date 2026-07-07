@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 
 //Default Error Handler
 
-app.use("/", (req, res, next) => {
+app.use((err,req, res, next) => {
   const ErrMessage = err.message || "Internal Server Error";
   const ErrStatusCode = err.statusCode || 500;
 

@@ -2,7 +2,7 @@ import React from "react";
 import Sidebar from "../../components/customerDashboard/Sidebar";
 import CustomerOverview from "../../components/customerDashboard/CustomerOverview";
 import CustomerOrders from "../../components/customerDashboard/CustomerOrders";
-import CustomerSettings from "../../components/customerDashboard/CustomerSettings";
+import CustomerSetting from "../../components/customerDashboard/CustomerSetting";
 import { useLocation , useNavigate} from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
@@ -41,7 +41,7 @@ const CustomerDashboard = () => {
         <div className="w-14/17 bg-(--color-base-100) p-4 rounded-lg shadow-md h-full">
           {activeTab === "overview" && <CustomerOverview />}
           {activeTab === "orders" && <CustomerOrders />}
-          {activeTab === "settings" && <CustomerSettings/>}
+          {activeTab === "settings" && <CustomerSetting />}
         </div>
       </div>
     </>

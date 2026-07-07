@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import toast from "react-hot-toast";
 import { FaPhoneAlt, FaEnvelope, FaMapMarkerAlt } from "react-icons/fa";
-import api from "../config/api.config.js";
 import contactBg from "../assets/images/contactPage.jpg";
+import api from "../config/ApiConfig";
 
-const ContactUs = () => {
-  const [formData, setformData] = useState({
+const Contact = () => {
+  const [formData, setFormData] = useState({
     fullName: "",
     email: "",
     phone: "",
@@ -13,12 +13,12 @@ const ContactUs = () => {
     message: "",
   });
 
-  const [errors, setErrors] = useState();
-  const [loading, setLoading] = useState();
+  const [errors, setErrors] = useState({});
+  const [loading, setLoading] = useState(false);
 
-  const handleChange = (e) => {
+  const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setformData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const validateForm = (data) => {
@@ -44,13 +44,7 @@ const ContactUs = () => {
         email: formData.email.toLowerCase(),
       });
       toast.success(res.data.message);
-      setFormData({
-        fullName: "",
-        email: "",
-        phone: "",
-        subject: "",
-        message: "",
-      });
+      setFormData({ fullName: "", email: "", phone: "", subject: "", message: "" });
       setErrors({});
     } catch (error) {
       toast.error(
@@ -70,7 +64,9 @@ const ContactUs = () => {
     }`;
 
   return (
-    <div className="h-[90vh] flex items-center justify-start bg-[url('/contactPage.jpg')] bg-cover bg-center p-10 md:ps-30">
+    <div
+      className="h-[90vh] flex items-center justify-start bg-[url('/contactPage.jpg')] bg-cover bg-center p-10 md:ps-30"
+    >
       <div className="bg-white rounded-lg shadow-md px-10 py-6 max-w-md w-full overflow-y-auto max-h-[85vh]">
         <h1 className="text-3xl font-bold text-(--color-primary) mb-2 text-center">
           Contact Us
@@ -173,4 +169,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default Contact;
