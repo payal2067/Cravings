@@ -4,9 +4,9 @@ import { genToken } from "../utils/auth.service.js";
 
 export const RegisterUser = async (req, res, next) => {
   try {
-    const { fullName, email, phone, password, gender, dob } = req.body;
+    const { fullName, email, phone, password, gender, dob, userType} = req.body;
 
-    if (!fullName || !email || !phone || !password || !gender || !dob) {
+    if (!fullName || !email || !phone || !password || !gender || !dob || !userType) {
       const error = new Error("All fields Required");
       error.statusCode = 400;
       return next(error);
@@ -37,6 +37,7 @@ export const RegisterUser = async (req, res, next) => {
       gender,
       dob,
       photo,
+      userType,
     });
 
     res.status(201).json({ message: "User Created Successfully" });
