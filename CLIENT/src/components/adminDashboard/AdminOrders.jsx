@@ -6,6 +6,7 @@ const AdminOrders = () => {
       <h2 className="text-2xl font-bold mb-6">My Orders</h2>
       <div className="bg-(--color-base-200) p-4 rounded-lg">
         <table className="w-full">
+          
           <thead>
             <tr className="border-b border-(--color-secondary)">
               <th className="text-left py-2">Order ID</th>
