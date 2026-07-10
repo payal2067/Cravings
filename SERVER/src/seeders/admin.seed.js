@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 
 const AdminUser = {
   fullName: "Admin",
-  email: "Admin@cravings.com",
+  email: "admin@cravings.com",
   password: await bcrypt.hash("StrongPassword@rICR", 10),
   dob: "2001-01-12",
   gender: "Female",
@@ -31,3 +31,5 @@ const adminSeed = async () => {
         
     }
 }
+
+export default adminSeed;

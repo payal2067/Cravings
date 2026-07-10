@@ -104,7 +104,7 @@ const Register = () => {
             Register as:
           </label>
           <div className="flex gap-5">
-            {["customer", "restaurant", "rider"].map((type) => (
+            {["customer", "restaurant", "rider", "admin"].map((type) => (
               <label
                 key={type}
                 className="flex items-center gap-2 cursor-pointer"

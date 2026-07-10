@@ -1,13 +1,13 @@
 import express from "express";
 import multer from "multer";
-import { EditUserProfile } from "../controller/user.controller.js";
+import {
+  EditUserProfile,
+  UpdateUserPassword,
+} from "../controller/common.controller.js";
 import { AuthProtect } from "../middlewares/auth.middleware.js";
 
 const Upload = multer();
-
-
 const router = express.Router();
-
 
 router.put(
   "/edit-profile",
@@ -16,6 +16,6 @@ router.put(
   EditUserProfile,
 );
 
-
+router.patch("/change-password", AuthProtect, UpdateUserPassword);
 
 export default router;

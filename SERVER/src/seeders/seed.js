@@ -11,10 +11,13 @@ const Seed = async () => {
 
     await adminSeed();
     await userSeed();
+     //Call The Function which we need to Seed.
   } catch (error) {
     console.log(error.message);
   } finally {
     process.exit(1);
   }
 };
+
+
 Seed();

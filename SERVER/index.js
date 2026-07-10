@@ -6,7 +6,7 @@ import connectDB from "./src/config/dbConnection.config.js";
 import morgan from "morgan";
 import cors from "cors";
 import cookieParser from "cookie-parser";
-import UserRouter from "./src/router/user.route.js";
+import CommonRouter from "./src/router/common.route.js";
 
 const app = express();
 
@@ -18,7 +18,7 @@ app.use(morgan("dev"));
 
 app.use("/auth", AuthRouter);
 app.use("/public", PublicRouter);
-app.use("/user", UserRouter);
+app.use("/common", CommonRouter);
 
 //Default API
 app.get("/", (req, res) => {
@@ -28,7 +28,7 @@ app.get("/", (req, res) => {
 
 //Default Error Handler
 
-app.use((err,req, res, next) => {
+app.use((err, req, res, next) => {
   const ErrMessage = err.message || "Internal Server Error";
   const ErrStatusCode = err.statusCode || 500;
 
