@@ -9,6 +9,8 @@ const ForgotPasswordModal = ({ open, onClose }) => {
   const [formData, setFormData] = useState({
     email: "",
     otp: "",
+    newPassword: "",
+    confirmNewPassword: "",
   });
 
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +19,12 @@ const ForgotPasswordModal = ({ open, onClose }) => {
 
   const handleCloseModal = () => {
     onClose();
+    setFormData({
+      email: "",
+      otp: "",
+      newPassword: "",
+      confirmNewPassword: "",
+    });
   };
 
   const handleChange = (e) => {
@@ -26,24 +34,37 @@ const ForgotPasswordModal = ({ open, onClose }) => {
   const handleResetPassword = async () => {
     try {
       setIsLoading(true);
-      !isOtpSent &&
-        {
-          // Send OTP
-        }(isOtpSent && !isOtpVerified) &&
-        {
-          // Verify  OTP
-        }(isOtpSent && isOtpVerified) &&
-        {
-          // Reset Password
-        };
-    } catch (error) {}
+      if (!isOtpSent) {
+        const res = await api.post("/auth/send-otp", formData);
+        toast.success(res.data.message);
+        setIsOtpSent(true);
+      }
+
+      if (isOtpSent && !isOtpVerified) {
+        const res = await api.post("/auth/verify-otp", formData);
+        toast.success(res.data.message);
+        setIsOtpVerified(true);
+      }
+      if (isOtpSent && isOtpVerified) {
+        const res = await api.post("/auth/reset-password", formData);
+        toast.success(res.data.message);
+        setIsOtpVerified(true);
+        handleCloseModal();
+      }
+    } catch (error) {
+      toast.error(
+        error.response?.data?.message ||
+          "Unknown error occurred during registration. Please try again.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   if (!open) return null;
-
   return (
     <>
-      <div className="fixed inset-0 z-999 bg-black/60 backdrop-blur-xs flex justify-center items-center">
+      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-999">
         <div className="bg-white w-xl rounded shadow max-h-[80vh] overflow-y-auto relative">
           <header className="flex justify-between p-4 border-b border-(--color-secondary)">
             <div className="font-bold text-xl text-(--color-primary)">
@@ -54,10 +75,10 @@ const ForgotPasswordModal = ({ open, onClose }) => {
             </button>
           </header>
           <main>
-            <div className="p-6 space-y-4">
+            <div className="p-4">
               <div className="flex flex-col gap-2">
                 <label htmlFor="email" className="font-semibold">
-                  Your Registered Email
+                  Your Registred Email
                 </label>
                 <input
                   type="email"
@@ -66,9 +87,62 @@ const ForgotPasswordModal = ({ open, onClose }) => {
                   value={formData.email}
                   onChange={handleChange}
                   className="border border-(--color-secondary) rounded px-3 py-2 disabled:bg-(--color-secondary) disabled:text-(--color-secondary-content)"
-                  disabled={isLoading}
+                  disabled={isLoading || isOtpSent}
                 />
               </div>
+
+              {isOtpSent && (
+                <div className="flex flex-col gap-2">
+                  <label htmlFor="otp" className="font-semibold">
+                    Your OTP
+                  </label>
+                  <input
+                    type="text"
+                    id="otp"
+                    name="otp"
+                    value={formData.otp}
+                    onChange={handleChange}
+                    className="border border-(--color-secondary) rounded px-3 py-2 disabled:bg-(--color-secondary) disabled:text-(--color-secondary-content)"
+                    disabled={isLoading || isOtpVerified}
+                  />
+                </div>
+              )}
+
+              {isOtpSent && isOtpVerified && (
+                <>
+                  <div className="flex flex-col gap-2">
+                    <label htmlFor="newPassword" className="font-semibold">
+                      Create Your New Password
+                    </label>
+                    <input
+                      type="password"
+                      id="newPassword"
+                      name="newPassword"
+                      value={formData.newPassword}
+                      onChange={handleChange}
+                      className="border border-(--color-secondary) rounded px-3 py-2 disabled:bg-(--color-secondary) disabled:text-(--color-secondary-content)"
+                      disabled={isLoading}
+                    />
+                  </div>
+                  <div className="flex flex-col gap-2">
+                    <label
+                      htmlFor="confirmNewPassword"
+                      className="font-semibold"
+                    >
+                      Confirm Your New Password
+                    </label>
+                    <input
+                      type="text"
+                      id="confirmNewPassword"
+                      name="confirmNewPassword"
+                      value={formData.confirmNewPassword}
+                      onChange={handleChange}
+                      className="border border-(--color-secondary) rounded px-3 py-2 disabled:bg-(--color-secondary) disabled:text-(--color-secondary-content)"
+                      disabled={isLoading}
+                    />
+                  </div>
+                </>
+              )}
             </div>
           </main>
           <footer className="w-full p-4 border-t border-(--color-secondary) flex justify-end gap-3">
