@@ -1,4 +1,18 @@
+import path from "path";
+import { fileURLToPath } from "url";
+import fs from "fs";
 import sendEmail from "../config/email.config.js";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const logoPath = path.resolve(
+  __dirname,
+  "../../../CLIENT/src/assets/images/circleLogo.png"
+);
+
+const logoBase64 = fs.readFileSync(logoPath).toString("base64");
+const logoDataUrl = `data:image/png;base64,${logoBase64}`;
 
 export const sendOTPEmail = async (email, newOTP) => {
   try {
@@ -26,7 +40,7 @@ export const sendOTPEmail = async (email, newOTP) => {
                         <td align="center" style="background:#ff6b35;padding:35px 25px;">
 
                             <img
-                                src="https://res.cloudinary.com/dpl3xwf1z/image/upload/v1783776802/circleLogo_z7icie.png"
+                                src="${logoDataUrl}"
                                 alt="Cravings Logo"
                                 width="90"
                                 style="display:block;border:0;outline:none;text-decoration:none;background:#ffffff;border-radius:50%;padding:8px;margin:0 auto 20px auto;"
@@ -102,7 +116,7 @@ export const sendOTPEmail = async (email, newOTP) => {
                         <td align="center" style="padding:30px 35px;background:#fafafa;">
 
                             <img
-                                src="https://res.cloudinary.com/dpl3xwf1z/image/upload/v1783776802/circleLogo_z7icie.png"
+                                src="https://collection.cloudinary.com/sqfdvate/08978bfe44ef2ce9c02dd036e63dc1c9"
                                 alt="Cravings Logo"
                                 width="70"
                                 style="display:block;border:0;outline:none;text-decoration:none;margin:0 auto 12px auto;"
@@ -130,6 +144,7 @@ export const sendOTPEmail = async (email, newOTP) => {
 </body>
 </html>
         `;
+
     await sendEmail(email, subject, message);
   } catch (error) {
     console.log(error.message);

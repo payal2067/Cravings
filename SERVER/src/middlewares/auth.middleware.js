@@ -69,6 +69,7 @@ export const OTPAuthProtect = async (req, res, next) => {
     // Send the verified user to the Controller for further processing
     req.user = verifiedUser;
     next();
+    
   } catch (error) {
     console.log(error.message);
     next(error);
