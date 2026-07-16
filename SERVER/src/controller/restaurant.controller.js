@@ -1,6 +1,45 @@
- import Restaurant from "../models/restaurant.model.js";
-import { deleteMultipleImages , uploadMultipleImages, UploadSingleImage, deleteSingleImage  } from "../utils/image.service.js";
-export const restaurantUpdateProfile = async (req, res, next) => {
+import Restaurant from "../models/restaurant.model.js";
+import {
+  deleteMultipleImages,
+  uploadMultipleImages,
+  uploadSingleImage,
+  deleteSingleImage,
+} from "../utils/image.service.js";
+
+export const RestaurantGetData = async (req, res, next) => {
+  try {
+    const currentUser = req.user;
+    const managerId = req.query.id;
+
+    console.log("Current User:", currentUser);
+    console.log("Manager ID:", managerId);
+
+    if (currentUser._id.toString() !== managerId) {
+      const error = new Error("Unauthorized Access");
+      error.statusCode = 401;
+      return next(error);
+    }
+
+    const restaurantData = await Restaurant.find({ managerId });
+
+    if (restaurantData) {
+      res.status(200).json({
+        message: "Restaurant Fetched Successfully",
+        data: restaurantData,
+      });
+    } else {
+      res.status(200).json({
+        message: "No restaurant Data Found",
+        data: {},
+      });
+    }
+  } catch (error) {
+    console.log(error.message);
+    next();
+  }
+};
+
+export const RestaurantUpdateProfile = async (req, res, next) => {
   try {
     const currentUser = req.user;
     const restaurantDataFromFE = req.body;
@@ -23,7 +62,7 @@ export const restaurantUpdateProfile = async (req, res, next) => {
 
     if (!existingRestaurant) {
       if (coverImageFromFE) {
-        const coverImage = await UploadSingleImage(
+        const coverImage = await uploadSingleImage(
           coverImageFromFE,
           `restaurant/${currentUser.phone}/coverPhoto`,
         );
@@ -52,7 +91,7 @@ export const restaurantUpdateProfile = async (req, res, next) => {
       if (coverImageFromFE) {
         await deleteSingleImage(existingRestaurant.coverImage);
 
-        const coverImage = await UploadSingleImage(
+        const coverImage = await ploadSingleImage(
           coverImageFromFE,
           `restaurant/${currentUser.phone}/coverPhoto`,
         );
