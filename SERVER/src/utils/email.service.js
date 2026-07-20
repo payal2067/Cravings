@@ -40,7 +40,7 @@ export const sendOTPEmail = async (email, newOTP) => {
                         <td align="center" style="background:#ff6b35;padding:35px 25px;">
 
                             <img
-                                src="${logoDataUrl}"
+                                src="https://collection.cloudinary.com/sqfdvate/7fc4f12cc9bc92a27f8f7587ee75cf79"
                                 alt="Cravings Logo"
                                 width="90"
                                 style="display:block;border:0;outline:none;text-decoration:none;background:#ffffff;border-radius:50%;padding:8px;margin:0 auto 20px auto;"
@@ -116,7 +116,7 @@ export const sendOTPEmail = async (email, newOTP) => {
                         <td align="center" style="padding:30px 35px;background:#fafafa;">
 
                             <img
-                                src="https://collection.cloudinary.com/sqfdvate/08978bfe44ef2ce9c02dd036e63dc1c9"
+                                src="https://collection.cloudinary.com/sqfdvate/7fc4f12cc9bc92a27f8f7587ee75cf79"
                                 alt="Cravings Logo"
                                 width="70"
                                 style="display:block;border:0;outline:none;text-decoration:none;margin:0 auto 12px auto;"
