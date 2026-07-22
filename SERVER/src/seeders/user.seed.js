@@ -13,9 +13,9 @@ const UserData = [
     photo: { url: "https://placehold.co/600x400?text=M", publicId: null },
   },
   {
-    fullName: "Payal sanodiya",
-    email: "payal89@gmail.com",
-    password: await bcrypt.hash("akku123", 10),
+    fullName: "Customer",
+    email: "customer@gmail.com",
+    password: await bcrypt.hash("customer@123", 10),
     dob: "2001-09-19",
     gender: "Female",
     userType: "customer",
