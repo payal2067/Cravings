@@ -66,3 +66,9 @@ input[type="number"] {
 input[type="password"]::-ms-reveal {
   display: none;
 }
+
+textarea:disabled,
+select:disabled,
+input:disabled {
+  cursor: not-allowed;
+}
