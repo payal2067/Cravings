@@ -5,6 +5,7 @@ import RestaurantOverview from "../../components/restaurantDashboard/RestaurantO
 import RestaurantOrders from "../../components/restaurantDashboard/RestaurantOrders";
 import RestaurantSetting from "../../components/restaurantDashboard/RestaurantSetting";
 import RestaurantSidebar from "../../components/restaurantDashboard/RestaurantSidebar";
+import RestaurantMenu from "../../components/restaurantDashboard/RestaurantMenu";
 
 const RestaurantDashboard = () => {
   const { isLogin, role } = useAuth();
@@ -44,6 +45,7 @@ const RestaurantDashboard = () => {
           {activeTab === "overview" && <RestaurantOverview />}
           {activeTab === "orders" && <RestaurantOrders />}
           {activeTab === "settings" && <RestaurantSetting />}
+              {activeTab === "menu" && <RestaurantMenu />}
         </div>
       </div>
     </>
